@@ -1,0 +1,46 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: struts3
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: struts3
+  namespace: struts3
+  labels:
+    app: struts3
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: struts3
+  template:
+    metadata:
+      labels:
+        app: struts3
+    spec:
+      containers:
+      - name: struts3
+        image: skywalke34/struts
+        ports:
+        - containerPort: 8080
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: struts3
+  namespace: struts3
+spec:
+  type: NodePort
+  selector:
+    app: struts3
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+      name: struts3-8080-tcp
