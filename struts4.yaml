@@ -1,0 +1,46 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: struts4
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: struts4
+  namespace: struts4
+  labels:
+    app: struts4
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: struts4
+  template:
+    metadata:
+      labels:
+        app: struts4
+    spec:
+      containers:
+      - name: struts4
+        image: harbor.suselabs.com/struts
+        ports:
+        - containerPort: 8080
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: struts4
+  namespace: struts4
+spec:
+  type: NodePort
+  selector:
+    app: struts4
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+      name: struts4-8080-tcp
