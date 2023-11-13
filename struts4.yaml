@@ -24,7 +24,7 @@ spec:
     spec:
       containers:
       - name: struts4
-        image: harbor.suselabs.com/struts
+        image: harbor.suselabs.com/struts/struts:latest
         ports:
         - containerPort: 8080
 
